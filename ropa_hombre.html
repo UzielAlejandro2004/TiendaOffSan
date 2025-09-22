@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ropa Hombre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #fdf6f0;
+            color: #333;
+        }
+        header {
+            background-color: #fc6c85;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+        }
+        nav {
+            background-color: #1f2a40;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: #fdf6f0;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #fc6c85;
+            color: white;
+            border-radius: 5px;
+        }
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(252,108,133,0.4);
+        }
+        h2 {
+            color: #fc6c85;
+            text-align: center;
+        }
+        .productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .producto {
+            border: 1px solid #fc6c85;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            background: #fff0f5;
+        }
+        .producto img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .producto:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(252,108,133,0.6);
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #1f2a40;
+            color: #fdf6f0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>Ropa para Hombre</header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="valores.html">Valores</a>
+        <a href="ropa_mujer.html">Ropa Mujer</a>
+        <a href="ropa_hombre.html">Ropa Hombre</a>
+        <a href="accesorios_hombre.html">Accesorios Hombre</a>
+        <a href="accesorios_varios.html">Accesorios Variados</a>
+        <a href="pago_envio.html">Pago y Envíos</a>
+    </nav>
+    <main>
+        <h2>Selección de Ropa para Hombre</h2>
+        <div class="productos">
+            <div class="producto">
+                <img src="https://images.unsplash.com/photo-1521336575827-3b98c86bb2b8?auto=format&fit=crop&w=400&q=80" alt="Camisa Casual" />
+                <p>Camisa Casual</p>
+            </div>
+            <div class="producto">
+                <img src="https://images.unsplash.com/photo-1508178394458-fcb33c3bfe8f?auto=format&fit=crop&w=400&q=80" alt="Chaqueta de Cuero" />
+                <p>Chaqueta de Cuero</p>
+            </div>
+            <div class="producto">
+                <img src="https://images.unsplash.com/photo-1562158070-ec41c1c8e7f9?auto=format&fit=crop&w=400&q=80" alt="Jeans Azul" />
+                <p>Jeans Azul</p>
+            </div>
+            <div class="producto">
+                <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=400&q=80" alt="Camisa Blanca" />
+                <p>Camisa Blanca</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        &copy; 2025 Tienda En Línea. Todos los derechos reservados.
+    </footer>
+</body>
+</html>

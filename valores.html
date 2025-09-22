@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Valores de la Empresa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #fdf6f0;
+            color: #333;
+        }
+        header {
+            background-color: #fc6c85;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+        }
+        nav {
+            background: linear-gradient(90deg, #1f2a40, #3f4b6b);
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav a {
+            color: #fdf6f0;
+            padding: 18px 25px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: background-color 0.3s, color 0.3s;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        nav a:not(:last-child) {
+            margin-right: 12px;
+        }
+        nav a:hover, nav a.active {
+            background-color: #fc6c85;
+            color: white;
+            border-bottom: 3px solid #ff5678;
+            border-radius: 5px 5px 0 0;
+        }
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(252,108,133,0.4);
+            line-height: 1.5em;
+        }
+        h2 {
+            color: #fc6c85;
+            text-align: center;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #1f2a40;
+            margin-bottom: 5px;
+            margin-top: 30px;
+        }
+        ul {
+            background-color: #fdf6f0;
+            padding: 15px;
+            border-radius: 8px;
+            list-style-type: none;
+        }
+        ul li {
+            margin: 8px 0;
+        }
+        .section-image {
+            display: block;
+            width: 320px;
+            max-width: 90vw;
+            height: auto;
+            border-radius: 10px;
+            margin: 15px auto 25px auto;
+            box-shadow: 0 3px 10px rgba(252,108,133,0.3);
+        }
+        .organigrama {
+            background: #e8d6de;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #1f2a40;
+            color: #fdf6f0;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            line-height: 1.4em;
+        }
+        .footer-creators {
+            margin-top: 6px;
+            font-style: italic;
+            color: #ff8fa1;
+        }
+    </style>
+</head>
+<body>
+    <header>Valores de la Empresa</header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="valores.html" class="active">Valores</a>
+        <a href="ropa_mujer.html">Ropa Mujer</a>
+        <a href="ropa_hombre.html">Ropa Hombre</a>
+        <a href="accesorios_hombre.html">Accesorios Hombre</a>
+        <a href="accesorios_varios.html">Accesorios Variados</a>
+        <a href="pago_envio.html">Pago y Envíos</a>
+    </nav>
+    <main>
+        <h2>Misión</h2>
+        <img src="https://images.unsplash.com/photo-1497493292307-31c376b6e479?auto=format&fit=crop&w=900&q=80" alt="Misión Empresarial" class="section-image" />
+        <p>Proveer a nuestros clientes una amplia variedad de ropa y artículos de calidad, combinando innovación tecnológica con un servicio personalizado, garantizando entregas rápidas, precios competitivos y una plataforma segura y fácil de usar que promueve la confianza y fidelidad.</p>
+        
+        <h2>Visión</h2>
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80" alt="Visión Empresarial" class="section-image" />
+        <p>Ser la tienda en línea líder en la venta de ropa y artículos diversos, reconocida por ofrecer productos de calidad, una experiencia de compra excepcional y compromiso con la satisfacción total del cliente a nivel nacional e internacional.</p>
+
+        <h2>Organigrama</h2>
+        <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Organigrama" class="section-image" style="max-width:120px;"/>
+        <div class="organigrama">
+                             DIRECTOR GENERAL
+                                   │
+        ┌──────────────────────────┼──────────────────────────┐
+        │                          │                          │
+Departamento de            Departamento de             Departamento de
+   Ventas                  Logística y                   Tecnología
+                           Distribución
+        │                          │                          │
+Equipo de Atención      Equipo de Almacén           Equipo de Desarrollo
+  al Cliente              y Envíos                    Web y Soporte
+        │                                               │
+     Equipo                                             Equipo de
+    Marketing                                          Seguridad IT
+        </div>
+
+        <h2>Funciones</h2>
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80" alt="Funciones" class="section-image" />
+        <h3>Director General</h3>
+        <ul>
+            <li>Definir visión, misión y objetivos estratégicos.</li>
+            <li>Tomar decisiones clave y supervisar departamentos.</li>
+            <li>Representar la empresa externamente.</li>
+        </ul>
+        <h3>Departamento de Ventas</h3>
+        <ul>
+            <li>Gestionar ventas y atención al cliente.</li>
+            <li>Ejecutar campañas de marketing digital.</li>
+            <li>Manejar reclamaciones y presencia en redes.</li>
+        </ul>
+        <h3>Departamento de Logística y Distribución</h3>
+        <ul>
+            <li>Control de inventarios y stock.</li>
+            <li>Empaque y preparación de pedidos.</li>
+            <li>Coordinación con mensajería y gestión de devoluciones.</li>
+        </ul>
+        <h3>Departamento de Tecnología</h3>
+        <ul>
+            <li>Desarrollo y mantenimiento web/app.</li>
+            <li>Seguridad informática y protección de datos.</li>
+            <li>Soporte técnico y mejoras funcionales.</li>
+        </ul>
+
+        <h2>Procesos</h2>
+        <img src="https://images.unsplash.com/photo-1504384308090-6baea20b37bf?auto=format&fit=crop&w=900&q=80" alt="Procesos" class="section-image" />
+        <h3>Director General</h3>
+        <ul>
+            <li>Planificación estratégica y evaluación.</li>
+            <li>Coordinación de reuniones y aprobación de presupuestos.</li>
+        </ul>
+        <h3>Departamento de Ventas</h3>
+        <ul>
+            <li>Recepción y seguimiento de pedidos.</li>
+            <li>Gestión de atención al cliente.</li>
+            <li>Diseño y lanzamiento de campañas.</li>
+            <li>Análisis de métricas.</li>
+        </ul>
+        <h3>Departamento de Logística y Distribución</h3>
+        <ul>
+            <li>Recepción y almacenamiento.</li>
+            <li>Procesamiento y despacho.</li>
+            <li>Monitoreo de envíos.</li>
+            <li>Gestión de devoluciones.</li>
+        </ul>
+        <h3>Departamento de Tecnología</h3>
+        <ul>
+            <li>Actualización y monitoreo del sitio.</li>
+            <li>Pruebas y corrección de errores.</li>
+            <li>Atención a incidencias y soporte.</li>
+            <li>Backup y mantenimiento de bases de datos.</li>
+        </ul>
+    </main>
+    <footer>
+        &copy; 2025 Tienda En Línea. Todos los derechos reservados.
+        <div class="footer-creators">
+            Creado por: Uziel Alejandro Hernandez Gonzalez y Juan Luis Reyes Marquez
+        </div>
+    </footer>
+</body>
+</html>

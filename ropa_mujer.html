@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ropa Mujer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #fdf6f0;
+            color: #333;
+        }
+        header {
+            background-color: #fc6c85;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+        }
+        nav {
+            background-color: #1f2a40;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: #fdf6f0;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #fc6c85;
+            color: white;
+            border-radius: 5px;
+        }
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(252,108,133,0.4);
+        }
+        h2 {
+            color: #fc6c85;
+            text-align: center;
+        }
+        .productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .producto {
+            border: 1px solid #fc6c85;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            background: #fff0f5;
+        }
+        .producto img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .producto:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(252,108,133,0.6);
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #1f2a40;
+            color: #fdf6f0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>Ropa para Mujer</header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="valores.html">Valores</a>
+        <a href="ropa_mujer.html">Ropa Mujer</a>
+        <a href="ropa_hombre.html">Ropa Hombre</a>
+        <a href="accesorios_hombre.html">Accesorios Hombre</a>
+        <a href="accesorios_varios.html">Accesorios Variados</a>
+        <a href="pago_envio.html">Pago y Envíos</a>
+    </nav>
+    <main>
+        <h2>Selección de Ropa para Mujer</h2>
+        <div class="productos">
+            <div class="producto">
+                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80" alt="Vestido Elegante" />
+                <p>Vestido Elegante</p>
+            </div>
+            <div class="producto">
+                <img src="https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=400&q=80" alt="Blusa de Moda" />
+                <p>Blusa de Moda</p>
+            </div>
+            <div class="producto">
+                <img src="https://images.unsplash.com/photo-1520975922807-9f22369b4bab?auto=format&fit=crop&w=400&q=80" alt="Jeans Casual" />
+                <p>Jeans Casual</p>
+            </div>
+            <div class="producto">
+                <img src="https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=400&q=80" alt="Suéter de Lana" />
+                <p>Suéter de Lana</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        &copy; 2025 Tienda En Línea. Todos los derechos reservados.
+    </footer>
+</body>
+</html>
