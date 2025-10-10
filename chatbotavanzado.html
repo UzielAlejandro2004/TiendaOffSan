@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Interactivo Tienda</title>
+    <style>
+        body {background: #fdf6f0;font-family: Arial,sans-serif;margin:0;height:100vh;display:flex;justify-content:center;align-items:center;}
+        #chatbot {background: #fff; width: 410px; border-radius:18px; box-shadow: 0 8px 35px rgba(252,108,133,0.22); overflow:hidden; display:flex; flex-direction:column;}
+        #header {background: linear-gradient(90deg,#fc6c85,#2e3353);color:#fff;text-align:center;font-size:1.18em;font-weight:bold;padding:18px;}
+        #messages {background: #fff0f5; padding: 18px 16px 12px 16px; height: 355px; font-size:1em;overflow-y:auto;}
+        #input-box {display:flex;width:100%;background:#fdf6f0;}
+        #input {flex:1; padding:12px 8px; border:none; font-size:1em;background:transparent;outline:none;}
+        #send {background:#fc6c85; color:#fff; border:none; padding:0 23px; cursor:pointer; font-size:1.12em; font-weight:600; transition:background 0.2s;}
+        #send:hover {background:#ff5678;}
+        #end-btn {background:#ff5678;color:white;border:none;border-radius:7px;padding:8px 15px;font-size:1em;font-weight:bold;cursor:pointer;margin:12px 0 0 0;}
+        #end-btn:hover {background:#fc6c85;}
+        .bot {margin:6px 0; font-size:1em;}
+        .user {margin:6px 0;text-align:right;}
+        .option-btn {padding:6px 16px;margin:3px 8px 6px 0;background:#fc6c85;color:white;border:none;border-radius:8px;font-size:1em;cursor:pointer;}
+        .option-btn:hover{background:#ff5678;}
+        .producto-tarjeta {
+            display:flex;align-items:center;background:#fff;border:1px solid #fc6c85;border-radius:9px;padding:10px 8px;margin:6px 0;
+        }
+        .producto-tarjeta img {
+            width:56px;height:56px;object-fit:cover;border-radius:7px;margin-right:12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chatbot">
+        <div id="header">🤖 Asistente Interactivo de la Tienda</div>
+        <div id="messages"></div>
+        <div id="input-box">
+            <input id="input" type="text" placeholder="Escribe tu mensaje..." autocomplete="off" />
+            <button id="send">Enviar</button>
+        </div>
+        <button id="end-btn" onclick="finalizarChat()">Finalizar Chat</button>
+    </div>
+<script>
+const productos = [
+  {nombre:"Vestido Elegante", categoria:"Ropa Mujer", precio:"$699", img:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Blusa de Moda", categoria:"Ropa Mujer", precio:"$349", img:"https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Jeans Casual", categoria:"Ropa Mujer", precio:"$550", img:"https://images.unsplash.com/photo-1520975922807-9f22369b4bab?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Suéter de Lana", categoria:"Ropa Mujer", precio:"$450", img:"https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Camisa Casual", categoria:"Ropa Hombre", precio:"$430", img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Chaqueta de Cuero", categoria:"Ropa Hombre", precio:"$1150", img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Jeans Azul", categoria:"Ropa Hombre", precio:"$590", img:"https://images.unsplash.com/photo-1600180758890-c731741c73fd?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Pulsera", categoria:"Accesorios Variados", precio:"$120", img:"https://images.unsplash.com/photo-1503354200673-3f52d6be49bb?auto=format&fit=crop&w=200&q=80"}
+];
+let carrito=[];
+
+const messages = document.getElementById("messages");
+
+function printBot(html){
+    messages.innerHTML += `<div class="bot">${html}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+}
+function printUser(html){
+    messages.innerHTML += `<div class="user"><b>Tú:</b> ${html}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function showQuickMenu(){
+    printBot("¿Sobre qué tema necesitas ayuda?<br>" +
+        `<button class="option-btn" onclick="themeOption('productos')">Productos</button>` +
+        `<button class="option-btn" onclick="themeOption('pagos')">Métodos de Pago</button>` +
+        `<button class="option-btn" onclick="themeOption('envío')">Envíos</button>` +
+        `<button class="option-btn" onclick="themeOption('contacto')">Contacto humano</button>` +
+        `<button class="option-btn" onclick="themeOption('queja')">Quejas</button>` +
+        `<button class="option-btn" onclick="themeOption('ayuda')">Guía de compra</button>`
+    );
+}
+
+window.onload = ()=>{
+    mensajeBienvenida();
+};
+
+function mensajeBienvenida(){
+    messages.innerHTML = "";
+    printBot("¡Hola! 👋 Soy tu asistente virtual.<br>Puedo ayudarte con:<br>" +
+        "- Búsquedas de productos<br>- Información sobre pagos y envíos<br>- Contacto humano<br>- Gestión de quejas o reclamos<br>¿Cómo puedo apoyarte hoy?");
+    showQuickMenu();
+}
+
+// Entrada de usuario
+document.getElementById("send").onclick = userMessage;
+document.getElementById("input").addEventListener("keydown", (e)=>{
+    if(e.key==="Enter") userMessage();
+});
+
+function userMessage(){
+    let msg = document.getElementById("input").value.trim();
+    if(!msg) return;
+    printUser(msg);
+    botReply(msg);
+    document.getElementById("input").value = "";
+}
+
+// Opciones rápidas
+function themeOption(op){
+    if(op==='productos'){
+        printUser("Quiero información sobre productos");
+        printBot(`¿De qué categoría buscas?<br>
+            <button class="option-btn" onclick="categoryProducts('Ropa Mujer')">Ropa Mujer</button>
+            <button class="option-btn" onclick="categoryProducts('Ropa Hombre')">Ropa Hombre</button>
+            <button class="option-btn" onclick="categoryProducts('Accesorios Variados')">Accesorios</button>`);
+    }else if(op==='pagos'){
+        printUser("Métodos de pago disponibles");
+        printBot("Aceptamos tarjetas de crédito/débito, PayPal, transferencia bancaria, pago en OXXO, Apple Pay y Google Pay.");
+        showQuickMenu();
+    }else if(op==='envío'){
+        printUser("Opciones de envío");
+        printBot("Envío estándar (3-7 días), express (1-2 días), internacional (7-15 días), y recojo en tienda. ¿Deseas rastrear tu pedido?");
+        showQuickMenu();
+    }else if(op==='contacto'){
+        printUser("Atención humana");
+        printBot("Si necesitas atención personalizada, puedes escribirnos a <b>soporte@tienda.com</b> o enviarnos mensaje directo por WhatsApp: <b>+52-1234-567-890</b>.<br>¿Quieres que un asesor te contacte?");
+        showQuickMenu();
+    }else if(op==='queja'){
+        printUser("Quiero poner una queja");
+        printBot("Por favor, describe tu problema o queja y se enviará al área de soporte. 👍");
+    }else if(op==='ayuda'){
+        printUser("¿Cómo funciona la compra?");
+        printBot("Selecciona el producto, agrégalo al carrito y sigue el proceso para pagar y elegir tu envío. ¿Necesitas ayuda específica?");
+        showQuickMenu();
+    }
+}
+
+function categoryProducts(cat){
+    printUser("Quiero ver productos de "+cat);
+    let fil = productos.filter(p=>p.categoria===cat);
+    if(fil.length){
+        fil.forEach(p=>{
+            printBot(`<div class="producto-tarjeta">
+                        <img src="${p.img}" alt="${p.nombre}">
+                        <div>
+                            <b>${p.nombre}</b><br>
+                            Precio: ${p.precio}<br>
+                            <small>${p.categoria}</small>
+                        </div></div>
+                        <button class="option-btn" onclick="productDetails('${p.nombre}')">Ver más</button>`);
+        });
+    } else printBot("No hay productos en esa categoría. ¿Buscas otra cosa?");
+    showQuickMenu();
+}
+
+function productDetails(nombre){
+    let p = productos.find(x=>x.nombre==nombre);
+    if(p){
+        printBot(`<b>${p.nombre}</b><br>
+            Precio: <span style='color:#fc6c85;font-weight:bold;'>${p.precio}</span><br>
+            Categoría: ${p.categoria}<br>
+            Disponible. ¿Te gustaría agregarlo al carrito o consultar características?<br>
+            <button class="option-btn" onclick="addToCart('${p.nombre}')">Agregar al carrito</button>
+            <button class="option-btn" onclick="showQuickMenu()">Volver al menú</button>`);
+    }
+}
+
+function addToCart(nombre){
+    carrito.push(nombre);
+    printBot(`¡Agregado al carrito! Tu carrito ahora contiene: <b>${carrito.join(", ")}</b><br>
+    ¿Quieres finalizar la compra, seguir buscando productos, recibir ayuda personalizada, o volver al menú?<br>
+    <button class="option-btn" onclick="finishCart()">Finalizar compra</button>
+    <button class="option-btn" onclick="showQuickMenu()">Menú principal</button>
+    <button class="option-btn" onclick="themeOption('contacto')">Contacto humano</button>`);
+}
+function finishCart(){
+    printBot("Gracias por tu compra. Recibirás información en tu correo.<br>¿Te gustaría dejar alguna queja, recibir ayuda de un asesor o explorar más productos?<br>"+
+        `<button class="option-btn" onclick="showQuickMenu()">Seguir navegando</button>`+
+        `<button class="option-btn" onclick="themeOption('contacto')">Atención humana</button>`+
+        `<button class="option-btn" onclick="themeOption('queja')">Enviar queja</button>`);
+    carrito=[];
+}
+
+// Interactivo con palabras clave, despedidas, contacto real y reset
+function botReply(msgRaw){
+    let msg = msgRaw.toLowerCase();
+    if(msg.includes("precio") && msg.includes("jeans")){
+        printBot("El precio de los jeans (mujer) es $550 y de los jeans azul (hombre) es $590. ¿Agregar alguno al carrito?");
+        return;
+    }
+    if(msg.includes("pantalones hombre") || msg.includes("jeans hombre")){ categoryProducts("Ropa Hombre"); return;}
+    if(msg.includes("vestido")||msg.includes("blusa")||msg.includes("ropa mujer")){ categoryProducts("Ropa Mujer"); return;}
+    if(msg.includes("accesorio")||msg.includes("pulsera")){ categoryProducts("Accesorios Variados"); return;}
+    if(msg.includes("sugerencia")||msg.includes("recomienda")||msg.includes("buscar")||msg.includes("nuevo")){
+        printBot("¿Qué tipo de producto te interesa? Dime una palabra clave o selecciona categoría abajo:"); showQuickMenu(); return;
+    }
+    if(msg.includes("queja")||msg.includes("reclamo")||msg.includes("problema")||msg.includes("defecto")){
+        let queja = prompt("Describe brevemente tu queja para canalizarla al área de soporte:");
+        if(queja){
+            localStorage.setItem("queja_"+Date.now(),queja);
+            printBot("Gracias por reportar el problema, el equipo de soporte dará seguimiento pronto.<br>¿Necesitas algo más?");
+        }else{
+            printBot("No se recibió ninguna queja. ¿Puedo ayudarte con otra cosa?");
+        }
+        showQuickMenu(); return;
+    }
+    if(msg.match(/adios|bye|gracias|nos vemos|hasta luego/)){
+        printBot("¡Gracias por visitarnos! Si necesitas algo más, aquí estaré. Puedes reiniciar el chat con el botón Finalizar Chat o volver al menú.");
+        return;
+    }
+    if(msg.includes("humano")||msg.includes("asesor")||msg.includes("personal")||msg.includes("contacto")){
+        printBot("Te pondré en contacto con un asesor.<br>Puedes escribirme por correo soporte@tienda.com o WhatsApp: +52-1234-567-890.<br>¿Quieres que te contacten? Responde tu correo o número y canalizo tu solicitud.");
+        return;
+    }
+    printBot("¿Puedes darme más detalles o elegir una opción del menú?");
+    showQuickMenu();
+}
+
+// Botón de finalizar chat
+function finalizarChat(){
+    messages.innerHTML = '';
+    printBot("✅ Conversación finalizada. Si necesitas otra consulta, escribe o refresca la página.<br>"+
+      "<button class='option-btn' onclick='mensajeBienvenida()'>Nuevo chat</button>");
+    carrito = [];
+}
+</script>
+</body>
+</html>
