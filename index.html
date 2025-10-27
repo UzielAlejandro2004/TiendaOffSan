@@ -1,147 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tienda en Línea - Inicio</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #fdf6f0;
-            color: #333;
-        }
-        header {
-            background-color: #fc6c85; /* rosa suave llamativo */
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 2em;
-            font-weight: bold;
-            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
-        }
-        /* Menú mejorado */
-        nav {
-            background: linear-gradient(90deg, #1f2a40, #3f4b6b);
-            display: flex;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav a {
-            color: #fdf6f0;
-            padding: 18px 25px;
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            transition: background-color 0.3s, color 0.3s;
-            border-bottom: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-        nav a:not(:last-child) {
-            margin-right: 12px;
-        }
-        nav a:hover, nav a.active {
-            background-color: #fc6c85;
-            color: white;
-            border-bottom: 3px solid #ff5678;
-            border-radius: 5px 5px 0 0;
-        }
-        main {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(252,108,133,0.4);
-            text-align: center;
-        }
-        h2 {
-            color: #fc6c85;
-        }
-        p {
-            font-size: 1.1em;
-            line-height: 1.5em;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #1f2a40;
-            color: #fdf6f0;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            line-height: 1.4em;
-        }
-        .footer-creators {
-            margin-top: 6px;
-            font-style: italic;
-            color: #ff8fa1;
-        }
-    </style>
-</head>
-<body>
-    <header>Tienda En Línea - Moda y Accesorios</header>
-    <nav>
-        <a href="index.html" class="active">Inicio</a>
-        <a href="valores.html">Valores</a>
-        <a href="ropa_mujer.html">Ropa Mujer</a>
-        <a href="ropa_hombre.html">Ropa Hombre</a>
-        <a href="accesorios_hombre.html">Accesorios Hombre</a>
-        <a href="accesorios_varios.html">Accesorios Variados</a>
-        <a href="pago_envio.html">Pago y Envíos</a>
-    </nav>
-    <main>
-        <h2>Bienvenidos a Nuestra Tienda en Línea</h2>
-        <p>Descubre la mejor selección de ropa y accesorios para mujer y hombre, con calidad garantizada y precios competitivos. ¡Compra fácil, rápido y seguro!</p>
-    </main>
-    <footer>
-        &copy; 2025 Tienda En Línea. Todos los derechos reservados.
-        <div class="footer-creators">
-            Creado por: Uziel Alejandro Hernandez Gonzalez y Juan Luis Reyes Marquez
-        </div>
-    </footer>
-    
-
-        <!-- BOTÓN FLOTANTE DEL CHATBOT -->
-<style>
-#chatbot-btn {
-  position: fixed; bottom: 36px; right: 36px;
-  width: 57px; height: 57px; border-radius: 50%;
-  background: #fc6c85; color: white; box-shadow: 0 6px 30px rgba(252,108,133,0.23);
-  border: none; font-size: 2em; z-index:10001; cursor: pointer; outline:none;
-  display: flex; align-items: center; justify-content:center;
-  transition: background 0.2s;
-}
-#chatbot-btn:hover { background: #ff5678; }
-#chatbot-iframe-container {
-  display: none; position: fixed; bottom: 110px; right: 40px;
-  z-index: 10002;
-}
-#chatbot-close {
-  position: absolute; top: -25px; right: 0; font-size:1.7em; background:none; border:none; color:#fc6c85; cursor:pointer; z-index:10003;
-}
-</style>
-<button id="chatbot-btn" title="Abrir chat"><span>💬</span></button>
-<div id="chatbot-iframe-container">
-  <button id="chatbot-close" title="Cerrar chat"> ✖</button>
-  <iframe src="chatbotavanzado.html"
-      style="width:390px;height:550px;border-radius:18px;box-shadow:0 8px 30px rgba(252,108,133,0.29);border:0;background:#fff;" 
-      allowtransparency="true"></iframe>
-</div>
-<script>
-document.getElementById("chatbot-btn").onclick = function() {
-  document.getElementById("chatbot-iframe-container").style.display = "block";
-}
-document.getElementById("chatbot-close").onclick = function() {
-  document.getElementById("chatbot-iframe-container").style.display = "none";
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Powered Store Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0"
+  }
 }
 </script>
-
-
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-gray-100">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
