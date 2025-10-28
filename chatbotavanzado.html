@@ -35,29 +35,16 @@
     </div>
 <script>
 const productos = [
-  // Ropa Mujer
-  {nombre:"Vestido Elegante", categoria:"Ropa Mujer", precio:"$699", img:"imagenes/imagenes/Ropa de mujer/vestidos.jpg"},
-  {nombre:"Blusa de Moda", categoria:"Ropa Mujer", precio:"$349", img:"imagenes/imagenes/Ropa de mujer/BlusasDeModa.jpg"},
-  {nombre:"Jeans Casual", categoria:"Ropa Mujer", precio:"$550", img:"imagenes/imagenes/Ropa de mujer/JeansCasual.jpg"},
-  {nombre:"Suéter de Lana", categoria:"Ropa Mujer", precio:"$450", img:"imagenes/imagenes/Ropa de mujer/SuéterdeLana.jpg"},
-  // Ropa Hombre
-  {nombre:"Camisa Casual", categoria:"Ropa Hombre", precio:"$430", img:"imagenes/imagenes/Ropa de hombre/CamisaCasual.jpg"},
-  {nombre:"Chaqueta de Cuero", categoria:"Ropa Hombre", precio:"$1150", img:"imagenes/imagenes/Ropa de hombre/ChaquetadeCuero.jpg"},
-  {nombre:"Jeans Azul", categoria:"Ropa Hombre", precio:"$590", img:"imagenes/imagenes/Ropa de hombre/JeansAzul.jpg"},
-  {nombre:"Camisa Blanca", categoria:"Ropa Hombre", precio:"$400", img:"imagenes/imagenes/Ropa de hombre/CamisaBlanca.jpg"},
-  // Accesorios Hombre
-  {nombre:"Cinturón de cuero", categoria:"Accesorios Hombre", precio:"$250", img:"imagenes/imagenes/Accesorios hombres/Cinturóndecuero.jpg"},
-  {nombre:"Reloj elegante", categoria:"Accesorios Hombre", precio:"$980", img:"imagenes/imagenes/Accesorios hombres/RelojElegante.jpg"},
-  {nombre:"Gafas de sol", categoria:"Accesorios Hombre", precio:"$310", img:"imagenes/imagenes/Accesorios hombres/Gafasdesol.png"},
-  {nombre:"Billetera de cuero", categoria:"Accesorios Hombre", precio:"$260", img:"imagenes/imagenes/Accesorios hombres/Billeteradecuero.jpg"},
-  // Accesorios Variados
-  {nombre:"Bufanda", categoria:"Accesorios Variados", precio:"$150", img:"imagenes/imagenes/Accesorios Bariados/Bufanda.jpg"},
-  {nombre:"Sombrero", categoria:"Accesorios Variados", precio:"$275", img:"imagenes/imagenes/Accesorios Bariados/Sombrero.jpg"},
-  {nombre:"Guantes", categoria:"Accesorios Variados", precio:"$180", img:"imagenes/imagenes/Accesorios Bariados/Guantes.jpg"},
-  {nombre:"Pulsera", categoria:"Accesorios Variados", precio:"$120", img:"imagenes/imagenes/Accesorios Bariados/Pulsera.jpg"}
+  {nombre:"Vestido Elegante", categoria:"Ropa Mujer", precio:"$699", img:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Blusa de Moda", categoria:"Ropa Mujer", precio:"$349", img:"https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Jeans Casual", categoria:"Ropa Mujer", precio:"$550", img:"https://images.unsplash.com/photo-1520975922807-9f22369b4bab?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Suéter de Lana", categoria:"Ropa Mujer", precio:"$450", img:"https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Camisa Casual", categoria:"Ropa Hombre", precio:"$430", img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Chaqueta de Cuero", categoria:"Ropa Hombre", precio:"$1150", img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Jeans Azul", categoria:"Ropa Hombre", precio:"$590", img:"https://images.unsplash.com/photo-1600180758890-c731741c73fd?auto=format&fit=crop&w=200&q=80"},
+  {nombre:"Pulsera", categoria:"Accesorios Variados", precio:"$120", img:"https://images.unsplash.com/photo-1503354200673-3f52d6be49bb?auto=format&fit=crop&w=200&q=80"}
 ];
-
-let carrito = [], estado = "inicio";
+let carrito=[], estado = "inicio";
 
 const messages = document.getElementById("messages");
 
@@ -106,12 +93,10 @@ function themeOption(op){
         printBot(`¿De qué categoría buscas?<br>
             <button class="option-btn" onclick="categoryProducts('Ropa Mujer')">Ropa Mujer</button>
             <button class="option-btn" onclick="categoryProducts('Ropa Hombre')">Ropa Hombre</button>
-            <button class="option-btn" onclick="categoryProducts('Accesorios Hombre')">Accesorios Hombre</button>
-            <button class="option-btn" onclick="categoryProducts('Accesorios Variados')">Accesorios Variados</button>
+            <button class="option-btn" onclick="categoryProducts('Accesorios Variados')">Accesorios</button>
             <button class="option-btn" onclick="mensajeBienvenida()">Menú principal</button>`);
     } else if(op==='populares'){
         printUser("Muéstrame lo más popular");
-        // Mostrar primeros 4 productos sin importar categoría
         productos.slice(0,4).forEach(p=>{
             printBot(`<div class="producto-tarjeta">
                         <img src="${p.img}" alt="${p.nombre}">
@@ -127,7 +112,7 @@ function themeOption(op){
         printBot("Envío estándar, express, internacional y recojo en tienda. Todos con rastreo.<br><button class='option-btn' onclick='mensajeBienvenida()'>Menú principal</button>");
     } else if(op==='contacto'){
         printUser("Quiero hablar con humano");
-        printBot("Puedes escribirnos por WhatsApp: <b>+52-1234-567-890</b> o correo <a href='mailto:soporte@tienda.com'>soporte@tienda.com</a> 💬<br><button class='option-btn' onclick='mensajeBienvenida()'>Menú principal</button>");
+        printBot("Puedes escribirnos por WhatsApp: <b>+52-1234-567-890</b> o correo soporte@tienda.com 💬<br><button class='option-btn' onclick='mensajeBienvenida()'>Menú principal</button>");
     } else if(op==='queja'){
         printUser("Tengo una queja");
         printBot("Por favor, escribe tu queja. Se mandará a soporte especializado.<br><button class='option-btn' onclick='mensajeBienvenida()'>Menú principal</button>");
@@ -177,7 +162,7 @@ function addToCart(nombre){
 function finishCart(){
     printBot("✅ Compra finalizada. Pronto llegará correo de confirmación.<br>"+
         "<button class='option-btn' onclick='mensajeBienvenida()'>Nuevo pedido</button>");
-    carrito = [];
+    carrito=[];
     estado = "inicio";
 }
 
