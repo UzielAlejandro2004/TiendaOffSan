@@ -9,7 +9,6 @@
         --rosa: #fc6c85;
         --rosa-oscuro: #ff5678;
         --morado: #2e3353;
-        --fondo: #fdf6f0;
         --blanco: #ffffff;
     }
 
@@ -24,7 +23,6 @@
         overflow: hidden;
     }
 
-    /* Chat flotante */
     #chatbot {
         background: rgba(255, 255, 255, 0.75);
         backdrop-filter: blur(18px);
@@ -35,16 +33,14 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        transform: translateY(20px);
         animation: fadeIn 0.8s ease forwards;
     }
 
     @keyframes fadeIn {
-        to { transform: translateY(0); opacity: 1; }
-        from { transform: translateY(20px); opacity: 0; }
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
     }
 
-    /* Encabezado */
     #header {
         background: linear-gradient(90deg, var(--rosa), var(--morado));
         color: var(--blanco);
@@ -52,8 +48,6 @@
         font-size: 1.2em;
         font-weight: 600;
         padding: 16px;
-        letter-spacing: 0.5px;
-        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -67,11 +61,9 @@
     }
 
     @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-4px); }
+        0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}
     }
 
-    /* Contenedor de mensajes */
     #messages {
         flex: 1;
         padding: 18px;
@@ -92,8 +84,8 @@
     }
 
     @keyframes fadeMsg {
-        from { opacity: 0; transform: translateY(8px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {opacity: 0; transform: translateY(8px);}
+        to {opacity: 1; transform: translateY(0);}
     }
 
     .bot {
@@ -110,7 +102,6 @@
         margin-left: auto;
     }
 
-    /* Entrada */
     #input-box {
         display: flex;
         border-top: 1px solid #f3e4e8;
@@ -138,10 +129,7 @@
         transition: background 0.3s;
     }
 
-    #send:hover {
-        background: var(--rosa-oscuro);
-    }
-
+    #send:hover {background: var(--rosa-oscuro);}
     #end-btn {
         margin: 8px auto;
         width: 90%;
@@ -154,12 +142,8 @@
         cursor: pointer;
         transition: 0.3s;
     }
+    #end-btn:hover {background: var(--rosa-oscuro);}
 
-    #end-btn:hover {
-        background: var(--rosa-oscuro);
-    }
-
-    /* Botones */
     .option-btn {
         display: inline-block;
         padding: 8px 14px;
@@ -172,13 +156,8 @@
         cursor: pointer;
         transition: 0.2s ease-in-out;
     }
+    .option-btn:hover {background: var(--rosa-oscuro); transform: scale(1.05);}
 
-    .option-btn:hover {
-        background: var(--rosa-oscuro);
-        transform: scale(1.05);
-    }
-
-    /* Productos */
     .producto-tarjeta {
         display: flex;
         align-items: center;
@@ -189,21 +168,11 @@
         margin: 6px 0;
         box-shadow: 0 2px 6px rgba(252,108,133,0.1);
     }
-
     .producto-tarjeta img {
-        width: 55px;
-        height: 55px;
-        border-radius: 8px;
-        margin-right: 10px;
+        width: 55px; height: 55px;
+        border-radius: 8px; margin-right: 10px;
     }
-
-    /* Animación de escritura IA */
-    #typing {
-        font-style: italic;
-        color: #aaa;
-        margin: 4px 0;
-        font-size: 0.9em;
-    }
+    #typing {font-style: italic; color: #aaa; margin: 4px 0; font-size: 0.9em;}
 </style>
 </head>
 <body>
@@ -276,12 +245,95 @@ function userMessage(){
     botReply(msg);
 }
 
-// --- Resto igual al original (productos, opciones, quejas, etc) ---
-function themeOption(op){/* mismo contenido de tu código original */}
+function themeOption(op){
+    if(op==='productos'){
+        estado="categoria";
+        printUser("Quiero información sobre productos");
+        printBot(`¿De qué categoría buscas?<br>
+            <button class="option-btn" onclick="categoryProducts('Ropa Mujer')">Ropa Mujer</button>
+            <button class="option-btn" onclick="categoryProducts('Ropa Hombre')">Ropa Hombre</button>
+            <button class="option-btn" onclick="categoryProducts('Accesorios Variados')">Accesorios</button>
+            <button class="option-btn" onclick="mensajeBienvenida()">Menú principal</button>`);
+    } else if(op==='populares'){
+        printUser("Muéstrame lo más popular");
+        productos.slice(0,4).forEach(p=>{
+            printBot(`<div class="producto-tarjeta">
+                        <img src="${p.img}" alt="${p.nombre}">
+                        <div><b>${p.nombre}</b><br>Precio: ${p.precio}<br><small>${p.categoria}</small></div></div>
+                        <button class="option-btn" onclick="productDetails('${p.nombre}')">Ver más</button>`);
+        });
+        printBot(`<button class="option-btn" onclick="mensajeBienvenida()">Volver</button>`);
+    } else if(op==='pagos'){
+        printUser("Formas de pago disponibles");
+        printBot("Aceptamos tarjetas, PayPal, transferencia bancaria, OXXO, Apple Pay y Google Pay.<br><button class='option-btn' onclick='mensajeBienvenida()'>Volver</button>");
+    } else if(op==='envío'){
+        printUser("Opciones de envío");
+        printBot("Envío estándar, express, internacional y recojo en tienda. Todos con rastreo.<br><button class='option-btn' onclick='mensajeBienvenida()'>Volver</button>");
+    } else if(op==='contacto'){
+        printUser("Quiero hablar con humano");
+        printBot("Escríbenos por WhatsApp: <b>+52-1234-567-890</b> o correo <b>soporte@tienda.com</b><br><button class='option-btn' onclick='mensajeBienvenida()'>Volver</button>");
+    } else if(op==='queja'){
+        printUser("Tengo una queja");
+        printBot("Por favor, escribe tu queja. Será enviada al equipo de soporte.<br><button class='option-btn' onclick='mensajeBienvenida()'>Cancelar</button>");
+        estado="queja";
+    } else if(op==='ayuda'){
+        printUser("¿Cómo comprar?");
+        printBot("Selecciona un producto, agrégalo al carrito y elige tu método de pago y envío.<br><button class='option-btn' onclick='mensajeBienvenida()'>Volver</button>");
+    }
+}
+
+function categoryProducts(cat){
+    estado="detalle";
+    printUser("Busco "+cat);
+    let fil=productos.filter(p=>p.categoria===cat);
+    fil.forEach(p=>{
+        printBot(`<div class="producto-tarjeta">
+            <img src="${p.img}" alt="${p.nombre}">
+            <div><b>${p.nombre}</b><br>Precio: ${p.precio}<br><small>${p.categoria}</small></div></div>
+            <button class="option-btn" onclick="addToCart('${p.nombre}')">Agregar al carrito</button>`);
+    });
+    printBot(`<button class="option-btn" onclick="mensajeBienvenida()">Menú principal</button>`);
+}
+
+function productDetails(nombre){
+    let p=productos.find(x=>x.nombre==nombre);
+    if(p){
+        printBot(`<b>${p.nombre}</b><br>Precio: ${p.precio}<br>Categoría: ${p.categoria}<br><button class="option-btn" onclick="addToCart('${p.nombre}')">Agregar al carrito</button>`);
+    }
+}
+
+function addToCart(nombre){
+    carrito.push(nombre);
+    printBot(`🛒 ${nombre} agregado. Tu carrito: <b>${carrito.join(", ")}</b><br><button class="option-btn" onclick="finishCart()">Finalizar compra</button><button class="option-btn" onclick="mensajeBienvenida()">Seguir explorando</button>`);
+}
+
+function finishCart(){
+    printBot("✅ Compra finalizada. Te llegará un correo de confirmación.<br><button class='option-btn' onclick='mensajeBienvenida()'>Nuevo pedido</button>");
+    carrito=[];
+    estado="inicio";
+}
+
+function botReply(msg){
+    let text=msg.toLowerCase();
+    if(estado=="queja"){
+        localStorage.setItem("queja_"+Date.now(),text);
+        printBot("Gracias por tu queja. Nuestro equipo la revisará pronto.");
+        estado="inicio"; return;
+    }
+    if(text.includes("precio") && text.includes("jeans")){
+        printBot("👖 Jeans mujer: $550, jeans hombre: $590.<br>¿Quieres agregar alguno?");
+        return;
+    }
+    if(text.includes("gracias") || text.includes("adios")){
+        printBot("¡Gracias por tu visita! 👋");
+        return;
+    }
+    printBot("No entendí bien tu mensaje 😅. Usa palabras como <b>productos</b>, <b>pagos</b> o <b>envíos</b> o elige del menú.");
+}
+
 function finalizarChat(){
     messages.innerHTML='';
-    printBot("✅ Chat finalizado. ¿Quieres iniciar una nueva conversación?");
-    printBot(`<button class="option-btn" onclick="mensajeBienvenida()">Nuevo chat</button>`);
+    printBot("✅ Chat finalizado. ¿Quieres iniciar una nueva conversación?<br><button class='option-btn' onclick='mensajeBienvenida()'>Nuevo chat</button>");
 }
 </script>
 </body>
