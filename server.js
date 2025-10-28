@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const OPENAI_API_KEY = "sk-proj-tu_clave_aqui";
+const OPENAI_API_KEY = "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";
 
 app.post("/api/chat", async (req, res) => {
   try {
@@ -34,3 +34,4 @@ app.post("/api/chat", async (req, res) => {
 });
 
 app.listen(3000, () => console.log("✅ ChatAvanzado corriendo en http://localhost:3000"));
+
