@@ -12,18 +12,18 @@
             color: #333;
         }
         header {
-            background-color: #fc6c85; /* rosa suave llamativo */
+            background-color: #fc6c85;
             color: white;
-            padding: 20px;
+            padding: 1.5em 1em;
             text-align: center;
             font-size: 2em;
             font-weight: bold;
             box-shadow: 0 3px 5px rgba(0,0,0,0.1);
         }
-        /* Menú mejorado */
         nav {
             background: linear-gradient(90deg, #1f2a40, #3f4b6b);
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
             position: sticky;
@@ -32,19 +32,19 @@
         }
         nav a {
             color: #fdf6f0;
-            padding: 18px 25px;
+            padding: 1em 1.2em;
             text-decoration: none;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 1.1px;
             transition: background-color 0.3s, color 0.3s;
             border-bottom: 3px solid transparent;
             display: flex;
             align-items: center;
-            font-size: 0.9rem;
+            font-size: 1em;
         }
         nav a:not(:last-child) {
-            margin-right: 12px;
+            margin-right: 0.5em;
         }
         nav a:hover, nav a.active {
             background-color: #fc6c85;
@@ -54,33 +54,64 @@
         }
         main {
             max-width: 900px;
-            margin: 30px auto;
-            padding: 20px;
+            width: 92vw;
+            margin: 2em auto;
+            padding: 1.2em;
             background: white;
             border-radius: 10px;
             box-shadow: 0 3px 10px rgba(252,108,133,0.4);
             text-align: center;
         }
-        h2 {
-            color: #fc6c85;
-        }
-        p {
-            font-size: 1.1em;
-            line-height: 1.5em;
-        }
+        h2 { color: #fc6c85; }
+        p  { font-size: 1.1em; line-height: 1.5em; }
         footer {
             text-align: center;
-            padding: 15px;
+            padding: 1.1em;
             background-color: #1f2a40;
             color: #fdf6f0;
-            margin-top: 40px;
+            margin-top: 2em;
             font-size: 0.9rem;
             line-height: 1.4em;
         }
         .footer-creators {
-            margin-top: 6px;
+            margin-top: 0.5em;
             font-style: italic;
             color: #ff8fa1;
+        }
+        /* BOTÓN DE CHAT RESPONSIVE */
+        #chatbot-btn {
+            position: fixed; bottom: 3vw; right: 3vw;
+            width: 56px; height: 56px; border-radius: 50%;
+            background: #fc6c85; color: white; box-shadow: 0 6px 30px rgba(252,108,133,0.23);
+            border: none; font-size: 2em; z-index:10001; cursor: pointer; outline:none;
+            display: flex; align-items: center; justify-content:center;
+            transition: background 0.2s;
+        }
+        #chatbot-btn:hover { background: #ff5678; }
+        #chatbot-iframe-container {
+            display: none; position: fixed; bottom: 110px; right: 40px; z-index: 10002;
+        }
+        #chatbot-close {
+            position: absolute; top: -25px; right: 0;
+            font-size:1.7em; background:none; border:none;
+            color:#fc6c85; cursor:pointer; z-index:10003;
+        }
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 800px) {
+            header { font-size: 1.3em; padding: 1.2em 0.6em; }
+            main   { padding: 1em; }
+            nav a  { font-size: 0.96em; padding: 0.7em 0.6em; }
+        }
+        @media (max-width: 600px) {
+            nav    { flex-direction: column; align-items: stretch; }
+            nav a  { padding: 0.7em 1em; margin-right: 0; }
+            main   { width: 98vw; padding: 0.7em; }
+            #chatbot-btn { width:39px; height:39px; font-size:1.2em; bottom: 10px; right: 10px; }
+            #chatbot-iframe-container iframe { width: 92vw !important; height: 68vh !important; }
+        }
+        @media (max-width: 400px) {
+            main { font-size:0.93em; }
+            header { font-size: 1em; }
         }
     </style>
 </head>
@@ -105,43 +136,22 @@
             Creado por: Uziel Alejandro Hernandez Gonzalez y Juan Luis Reyes Marquez
         </div>
     </footer>
-    
 
-        <!-- BOTÓN FLOTANTE DEL CHATBOT -->
-<style>
-#chatbot-btn {
-  position: fixed; bottom: 36px; right: 36px;
-  width: 57px; height: 57px; border-radius: 50%;
-  background: #fc6c85; color: white; box-shadow: 0 6px 30px rgba(252,108,133,0.23);
-  border: none; font-size: 2em; z-index:10001; cursor: pointer; outline:none;
-  display: flex; align-items: center; justify-content:center;
-  transition: background 0.2s;
-}
-#chatbot-btn:hover { background: #ff5678; }
-#chatbot-iframe-container {
-  display: none; position: fixed; bottom: 110px; right: 40px;
-  z-index: 10002;
-}
-#chatbot-close {
-  position: absolute; top: -25px; right: 0; font-size:1.7em; background:none; border:none; color:#fc6c85; cursor:pointer; z-index:10003;
-}
-</style>
-<button id="chatbot-btn" title="Abrir chat"><span>💬</span></button>
-<div id="chatbot-iframe-container">
-  <button id="chatbot-close" title="Cerrar chat"> ✖</button>
-  <iframe src="chatbotavanzado.html"
-      style="width:390px;height:550px;border-radius:18px;box-shadow:0 8px 30px rgba(252,108,133,0.29);border:0;background:#fff;" 
-      allowtransparency="true"></iframe>
-</div>
-<script>
-document.getElementById("chatbot-btn").onclick = function() {
-  document.getElementById("chatbot-iframe-container").style.display = "block";
-}
-document.getElementById("chatbot-close").onclick = function() {
-  document.getElementById("chatbot-iframe-container").style.display = "none";
-}
-</script>
-
-
+    <!-- BOTÓN FLOTANTE DEL CHATBOT -->
+    <button id="chatbot-btn" title="Abrir chat"><span>💬</span></button>
+    <div id="chatbot-iframe-container">
+        <button id="chatbot-close" title="Cerrar chat">✖</button>
+        <iframe src="chatbotavanzado.html"
+            style="width:390px;height:550px;border-radius:18px;box-shadow:0 8px 30px rgba(252,108,133,0.29);border:0;background:#fff;" 
+            allowtransparency="true"></iframe>
+    </div>
+    <script>
+    document.getElementById("chatbot-btn").onclick = function() {
+      document.getElementById("chatbot-iframe-container").style.display = "block";
+    }
+    document.getElementById("chatbot-close").onclick = function() {
+      document.getElementById("chatbot-iframe-container").style.display = "none";
+    }
+    </script>
 </body>
 </html>
