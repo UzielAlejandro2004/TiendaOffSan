@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Asistente Virtual de la Tienda</title>
+
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -84,7 +85,7 @@ body {
   <div class="chat-body" id="chat-body">
     <div class="message bot">
       ¡Hola! 👋 Soy tu asistente virtual.  
-      Puedo ayudarte con <b>productos</b>, <b>pagos</b>, <b>envíos</b>, <b>tallas</b>, o <b>contactarte con un asesor</b>.  
+      Puedo ayudarte con <b>productos, pagos, envíos, tallas</b> y más.  
       ¿En qué te ayudo hoy?
     </div>
   </div>
@@ -94,71 +95,66 @@ body {
   </div>
 </div>
 
+<!-- Cargar API KEY desde archivo externo -->
+<script src="config.js"></script>
+
 <script>
-function sendMessage() {
+// Enviar mensaje y obtener respuesta IA
+async function sendMessage() {
   const input = document.getElementById("user-input");
   const chatBody = document.getElementById("chat-body");
   const userText = input.value.trim();
   if (!userText) return;
 
-  // Añadir mensaje del usuario
+  // Crear mensaje de usuario
   const userMsg = document.createElement("div");
   userMsg.classList.add("message", "user");
   userMsg.textContent = userText;
   chatBody.appendChild(userMsg);
   chatBody.scrollTop = chatBody.scrollHeight;
 
-  // Procesar respuesta
+  input.value = "";
+
+  // Crear mensaje temporal "Escribiendo..."
   const botMsg = document.createElement("div");
   botMsg.classList.add("message", "bot");
-  botMsg.innerHTML = getBotResponse(userText);
+  botMsg.textContent = "Escribiendo...";
   chatBody.appendChild(botMsg);
   chatBody.scrollTop = chatBody.scrollHeight;
 
-  input.value = "";
+  // Llamar a OpenAI
+  const aiResponse = await getBotResponse(userText);
+
+  botMsg.textContent = aiResponse;
+  chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// Simulación de IA: detección de intención básica
-function getBotResponse(input) {
-  input = input.toLowerCase();
 
-  if (input.includes("hola") || input.includes("buenas")) {
-    return "¡Hola! 😊 ¿Buscas algo en especial? Puedo mostrarte ropa, accesorios o guiarte con pagos y envíos.";
+// Función IA usando OpenAI API
+async function getBotResponse(input) {
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + OPENAI_API_KEY
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: "Eres un asistente de tienda online amable y experto. Responde corto, claro y útil." },
+          { role: "user", content: input }
+        ]
+      })
+    });
+
+    const data = await response.json();
+
+    return data.choices[0].message.content;
+
+  } catch (error) {
+    return "Lo siento, hubo un problema al conectar con el servidor. Inténtalo de nuevo.";
   }
-
-  if (input.includes("camisa") || input.includes("pantalón") || input.includes("ropa hombre")) {
-    return "👕 Puedes visitar nuestra sección de <a href='ropa_hombre.html' target='_blank'>Ropa para Hombre</a>.";
-  }
-
-  if (input.includes("vestido") || input.includes("ropa mujer")) {
-    return "👗 Claro, aquí tienes nuestra <a href='ropa_mujer.html' target='_blank'>colección para mujer</a>.";
-  }
-
-  if (input.includes("accesorio") || input.includes("reloj") || input.includes("cinturón")) {
-    return "🕶️ Aquí puedes ver <a href='accesorios_hombre.html' target='_blank'>accesorios para hombre</a> o <a href='accesorios_varios.html' target='_blank'>accesorios variados</a>.";
-  }
-
-  if (input.includes("envío") || input.includes("entrega") || input.includes("llega")) {
-    return "📦 Los envíos tardan de 2 a 5 días hábiles. Puedes ver más detalles en <a href='pago_envio.html' target='_blank'>Pagos y Envíos</a>.";
-  }
-
-  if (input.includes("pago") || input.includes("tarjeta") || input.includes("transferencia")) {
-    return "💳 Aceptamos pagos con tarjeta, PayPal y transferencias bancarias. Consulta <a href='pago_envio.html' target='_blank'>aquí</a> los métodos disponibles.";
-  }
-
-  if (input.includes("asesor") || input.includes("ayuda humana") || input.includes("contactar")) {
-    return "👩‍💼 Te puedo conectar con un asesor. Por favor, déjame tu nombre y correo para que te contacte.";
-  }
-
-  if (input.includes("queja") || input.includes("problema") || input.includes("error")) {
-    return "⚠️ Lamentamos el inconveniente. Describe brevemente tu problema para que lo revisemos o escríbenos a soporte@tiendaenlinea.com.";
-  }
-
-  if (input.includes("talla")) {
-    return "📏 Contamos con tallas desde XS hasta XXL. ¿Podrías decirme si es para hombre o mujer?";
-  }
-
-  return "🤖 No estoy seguro de haber entendido. ¿Podrías reformularlo? También puedes escribir 'ropa mujer', 'envío' o 'pagos'.";
 }
 </script>
 
